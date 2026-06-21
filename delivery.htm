@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Info — Raithu Bazaar 🌾</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { forest: { DEFAULT: '#0f4023', light: '#1e7a3f', mid: '#2d9c5b' }, gold: { DEFAULT: '#d4a017', light: '#f0c040', dark: '#b8880f' }, cream: '#fdf8f0', mint: '#f0f9f4' }, fontFamily: { inter: ['Inter', 'sans-serif'] } } } }</script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="font-inter bg-gray-50 text-gray-800">
+    <div id="headerMount"></div>
+    <section class="bg-gradient-to-r from-forest to-forest-light text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">🚚 Delivery Information</h1>
+            <p class="text-xl text-gray-200">Fresh from farm to your door in 12-24 hours | 12-24 గంటల్లో తాజాగా</p>
+        </div>
+    </section>
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="space-y-8">
+            <div class="bg-white rounded-2xl shadow-md p-6">
+                <h2 class="text-xl font-bold text-forest mb-4">Delivery Areas</h2>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="bg-mint rounded-xl p-4">
+                        <h3 class="font-bold text-forest mb-2">🏙️ Hyderabad & Secunderabad</h3>
+                        <p class="text-gray-600 text-sm">Same-day and next-day delivery available across major areas
+                            including Madhapur, Gachibowli, Kondapur, Kukatpally, Begumpet, Banjara Hills, Jubilee
+                            Hills, and more.</p>
+                    </div>
+                    <div class="bg-cream rounded-xl p-4">
+                        <h3 class="font-bold text-forest mb-2">🌾 Rest of Telangana</h3>
+                        <p class="text-gray-600 text-sm">Delivery within 24-48 hours to Warangal, Karimnagar, Nizamabad,
+                            Khammam, and other district headquarters.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-md p-6">
+                <h2 class="text-xl font-bold text-forest mb-4">Delivery Charges</h2>
+                <div class="space-y-3 text-sm">
+                    <div class="flex items-center justify-between p-3 bg-mint rounded-xl"><span
+                            class="text-gray-700 font-medium">Orders above ₹300</span><span
+                            class="text-forest-light font-bold text-lg">FREE ✅</span></div>
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl"><span
+                            class="text-gray-700 font-medium">Orders below ₹300</span><span
+                            class="text-forest font-bold">₹30</span></div>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-md p-6">
+                <h2 class="text-xl font-bold text-forest mb-4">Delivery Timeline</h2>
+                <div class="space-y-4 text-sm">
+                    <div class="flex gap-4 items-start">
+                        <div class="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center text-xl shrink-0">
+                            🛒</div>
+                        <div>
+                            <h3 class="font-bold text-forest">Order Placed</h3>
+                            <p class="text-gray-500">Your order is confirmed and sent to the farmer</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div
+                            class="w-12 h-12 bg-forest/10 rounded-xl flex items-center justify-center text-xl shrink-0">
+                            🌾</div>
+                        <div>
+                            <h3 class="font-bold text-forest">Harvesting (2-4 hrs)</h3>
+                            <p class="text-gray-500">Farmer harvests fresh produce for your order</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div class="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center text-xl shrink-0">
+                            📦</div>
+                        <div>
+                            <h3 class="font-bold text-forest">Quality Check & Packing</h3>
+                            <p class="text-gray-500">Produce is inspected and packed with care</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div
+                            class="w-12 h-12 bg-forest/10 rounded-xl flex items-center justify-center text-xl shrink-0">
+                            🚚</div>
+                        <div>
+                            <h3 class="font-bold text-forest">Out for Delivery</h3>
+                            <p class="text-gray-500">Track your order in real-time as it reaches you</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div class="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center text-xl shrink-0">
+                            🎉</div>
+                        <div>
+                            <h3 class="font-bold text-forest">Delivered!</h3>
+                            <p class="text-gray-500">Fresh, farm-to-table in 12-24 hours</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="footerMount"></div>
+    <script src="lang.js"></script>
+    <script src="app.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => { document.getElementById('headerMount').innerHTML = RaithuBazaar.ui.getHeaderHTML('delivery'); document.getElementById('footerMount').innerHTML = RaithuBazaar.ui.getFooterHTML(); RaithuBazaar.ui.initPage(); });</script>
+</body>
+
+</html>

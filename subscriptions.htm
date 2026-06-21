@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Boxes — Raithu Bazaar 🌾</title>
+    <meta name="description"
+        content="Weekly and monthly farm-fresh produce boxes delivered to your door. Save more with subscriptions.">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { forest: { DEFAULT: '#0f4023', light: '#1e7a3f', mid: '#2d9c5b' }, gold: { DEFAULT: '#d4a017', light: '#f0c040', dark: '#b8880f' }, cream: '#fdf8f0', mint: '#f0f9f4' }, fontFamily: { inter: ['Inter', 'sans-serif'] } } } }</script>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="font-inter bg-gray-50 text-gray-800">
+    <div id="headerMount"></div>
+
+    <section class="bg-gradient-to-r from-forest to-forest-light text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl sm:text-5xl font-extrabold mb-4 font-[Outfit]">Farm-Fresh Subscription Boxes</h1>
+            <p class="text-xl text-gray-200">Weekly & monthly boxes | వారపు & నెలవారీ బాక్సులు</p>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+            <!-- Veggie Essentials -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                <div class="bg-mint p-6 text-center">
+                    <div class="text-5xl mb-3">🥬</div>
+                    <h3 class="text-2xl font-bold text-forest">Veggie Essentials</h3>
+                    <p class="text-gray-500 text-sm mt-1">Weekly | వారపు</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-center mb-6">
+                        <span class="text-4xl font-extrabold text-forest">₹299</span>
+                        <span class="text-gray-400 text-sm">/week</span>
+                    </div>
+                    <ul class="space-y-3 text-sm text-gray-600 mb-6">
+                        <li class="flex items-center gap-2">✅ 5 seasonal vegetables (2 kg each)</li>
+                        <li class="flex items-center gap-2">✅ Free home delivery</li>
+                        <li class="flex items-center gap-2">✅ Harvested same day</li>
+                        <li class="flex items-center gap-2">✅ Skip or pause anytime</li>
+                        <li class="flex items-center gap-2">✅ Save ₹80/week vs market</li>
+                    </ul>
+                    <button onclick="RaithuBazaar.ui.showToast('Subscription coming soon! We will notify you. 📩')"
+                        class="w-full py-3.5 bg-forest-light text-white font-bold rounded-xl hover:bg-forest transition-all">Subscribe
+                        Now</button>
+                </div>
+            </div>
+
+            <!-- Family Farm Box -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover relative">
+                <div class="absolute top-4 right-4 bg-gold text-forest px-3 py-1 rounded-full text-xs font-bold">Most
+                    Popular</div>
+                <div class="bg-gradient-to-r from-forest to-forest-light p-6 text-center text-white">
+                    <div class="text-5xl mb-3">📦</div>
+                    <h3 class="text-2xl font-bold">Family Farm Box</h3>
+                    <p class="text-gray-200 text-sm mt-1">Weekly | వారపు</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-center mb-6">
+                        <span class="text-4xl font-extrabold text-forest">₹799</span>
+                        <span class="text-gray-400 text-sm">/week</span>
+                    </div>
+                    <ul class="space-y-3 text-sm text-gray-600 mb-6">
+                        <li class="flex items-center gap-2">✅ 8 seasonal vegetables</li>
+                        <li class="flex items-center gap-2">✅ 3 fruits + 1 kg rice</li>
+                        <li class="flex items-center gap-2">✅ 1 litre farm-fresh milk</li>
+                        <li class="flex items-center gap-2">✅ Free delivery + priority slot</li>
+                        <li class="flex items-center gap-2">✅ Save ₹200/week vs market</li>
+                        <li class="flex items-center gap-2">✅ Recipe card included</li>
+                    </ul>
+                    <button onclick="RaithuBazaar.ui.showToast('Subscription coming soon! We will notify you. 📩')"
+                        class="w-full py-3.5 bg-gold text-forest font-bold rounded-xl hover:bg-gold-dark hover:text-white transition-all">Subscribe
+                        Now ⭐</button>
+                </div>
+            </div>
+
+            <!-- Monthly Mega Box -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                <div class="bg-cream p-6 text-center">
+                    <div class="text-5xl mb-3">🎁</div>
+                    <h3 class="text-2xl font-bold text-forest">Monthly Mega Box</h3>
+                    <p class="text-gray-500 text-sm mt-1">Monthly | నెలవారీ</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-center mb-6">
+                        <span class="text-4xl font-extrabold text-forest">₹2,499</span>
+                        <span class="text-gray-400 text-sm">/month</span>
+                    </div>
+                    <ul class="space-y-3 text-sm text-gray-600 mb-6">
+                        <li class="flex items-center gap-2">✅ 4 weekly veggie deliveries</li>
+                        <li class="flex items-center gap-2">✅ 5 kg premium rice</li>
+                        <li class="flex items-center gap-2">✅ 1 kg each: dal, spices</li>
+                        <li class="flex items-center gap-2">✅ 500g pure desi ghee</li>
+                        <li class="flex items-center gap-2">✅ Free delivery all month</li>
+                        <li class="flex items-center gap-2">✅ Save ₹800+/month</li>
+                    </ul>
+                    <button onclick="RaithuBazaar.ui.showToast('Subscription coming soon! We will notify you. 📩')"
+                        class="w-full py-3.5 bg-forest-light text-white font-bold rounded-xl hover:bg-forest transition-all">Subscribe
+                        Now</button>
+                </div>
+            </div>
+        </div>
+
+        <section class="bg-cream rounded-3xl p-8 lg:p-12 text-center">
+            <h2 class="text-2xl font-bold text-forest mb-4">How Subscriptions Work</h2>
+            <div class="grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto mt-8">
+                <div>
+                    <div class="text-4xl mb-3">1️⃣</div>
+                    <h3 class="font-bold text-forest">Choose a Plan</h3>
+                    <p class="text-gray-500 text-sm mt-1">ప్లాన్ ఎంచుకోండి</p>
+                </div>
+                <div>
+                    <div class="text-4xl mb-3">2️⃣</div>
+                    <h3 class="font-bold text-forest">We Deliver Weekly</h3>
+                    <p class="text-gray-500 text-sm mt-1">వారానికి డెలివరీ</p>
+                </div>
+                <div>
+                    <div class="text-4xl mb-3">3️⃣</div>
+                    <h3 class="font-bold text-forest">Skip or Cancel Anytime</h3>
+                    <p class="text-gray-500 text-sm mt-1">ఎప్పుడైనా ఆపండి</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footerMount"></div>
+    <script src="lang.js"></script>
+    <script src="app.js"></script>
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('headerMount').innerHTML = RaithuBazaar.ui.getHeaderHTML('subscriptions');
+            document.getElementById('footerMount').innerHTML = RaithuBazaar.ui.getFooterHTML();
+            RaithuBazaar.ui.initPage();
+        });
+    </script>
+</body>
+
+</html>

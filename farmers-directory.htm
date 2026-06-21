@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Farmers — Raithu Bazaar 🌾</title>
+    <meta name="description"
+        content="Meet the farmers behind your food. Browse profiles, see their produce, and buy directly.">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { forest: { DEFAULT: '#0f4023', light: '#1e7a3f', mid: '#2d9c5b' }, gold: { DEFAULT: '#d4a017', light: '#f0c040', dark: '#b8880f' }, cream: '#fdf8f0', mint: '#f0f9f4' }, fontFamily: { inter: ['Inter', 'sans-serif'] } } } }</script>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="font-inter bg-gray-50 text-gray-800">
+    <div id="headerMount"></div>
+
+    <section class="bg-gradient-to-r from-forest to-forest-light text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl sm:text-5xl font-extrabold mb-4 font-[Outfit]">Our Farmers</h1>
+            <p class="text-xl text-gray-200 mb-8">Meet the people behind your food | మీ ఆహారం వెనుక ఉన్న రైతులను కలవండి
+            </p>
+            <div class="max-w-lg mx-auto">
+                <input type="text" id="farmerSearch" oninput="filterFarmers()"
+                    placeholder="🔍 Search by name, village, or product..."
+                    class="w-full px-5 py-3.5 rounded-xl text-forest bg-white/95 backdrop-blur-sm border-0 shadow-lg text-sm focus:ring-2 focus:ring-gold outline-none">
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Filter Chips -->
+        <div class="flex flex-wrap gap-2 mb-8">
+            <button onclick="setFilter('all')"
+                class="farmer-filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-forest text-white"
+                data-filter="all">All Farmers</button>
+            <button onclick="setFilter('verified')"
+                class="farmer-filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-gray-100 text-gray-600"
+                data-filter="verified">✅ Verified Only</button>
+            <button onclick="setFilter('organic')"
+                class="farmer-filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-gray-100 text-gray-600"
+                data-filter="organic">🌿 Organic Farmers</button>
+            <button onclick="setFilter('top-rated')"
+                class="farmer-filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-gray-100 text-gray-600"
+                data-filter="top-rated">⭐ Top Rated</button>
+        </div>
+
+        <p id="farmerCount" class="text-sm text-gray-400 mb-4"></p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="farmersGrid"></div>
+
+        <div id="noFarmers" class="hidden text-center py-16">
+            <div class="text-5xl mb-4">🌾</div>
+            <h3 class="text-lg font-bold text-gray-400 mb-2">No farmers found</h3>
+            <p class="text-gray-400 text-sm">Try a different search term or filter.</p>
+        </div>
+
+        <div class="mt-16 bg-gradient-to-r from-forest to-forest-light rounded-3xl p-8 lg:p-12 text-center text-white">
+            <h2 class="text-3xl font-bold mb-4">Are You a Farmer?</h2>
+            <p class="text-gray-200 mb-6">Join 500+ farmers earning 2x more on Raithu Bazaar</p>
+            <a href="farmer-register.htm"
+                class="inline-block px-10 py-4 bg-gold text-forest font-bold rounded-xl text-lg hover:bg-gold-dark hover:text-white transition-all">Register
+                Now — Free!</a>
+        </div>
+    </main>
+
+    <div id="footerMount"></div>
+    <script src="lang.js"></script>
+    <script src="app.js"></script>
+    <script src="main.js"></script>
+    <script>
+        let currentFarmerFilter = 'all';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('headerMount').innerHTML = RaithuBazaar.ui.getHeaderHTML('farmers');
+            document.getElementById('footerMount').innerHTML = RaithuBazaar.ui.getFooterHTML();
+            RaithuBazaar.ui.initPage();
+            filterFarmers();
+        });
+
+        function setFilter(filter) {
+            currentFarmerFilter = filter;
+            document.querySelectorAll('.farmer-filter-btn').forEach(btn => {
+                const isActive = btn.getAttribute('data-filter') === filter;
+                btn.className = `farmer-filter-btn px-4 py-2 rounded-full text-xs font-semibold ${isActive ? 'bg-forest text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'} transition-all`;
+            });
+            filterFarmers();
+        }
+
+        function filterFarmers() {
+            const query = (document.getElementById('farmerSearch').value || '').toLowerCase();
+            let farmers = RaithuBazaar.farmers.getAll();
+
+            if (query) {
+                farmers = farmers.filter(f =>
+                    f.name.toLowerCase().includes(query) ||
+                    (f.nameTE || '').toLowerCase().includes(query) ||
+                    f.village.toLowerCase().includes(query) ||
+                    f.state.toLowerCase().includes(query) ||
+                    (f.products || []).some(p => p.toLowerCase().includes(query))
+                );
+            }
+
+            if (currentFarmerFilter === 'verified') farmers = farmers.filter(f => f.certified);
+            if (currentFarmerFilter === 'organic') {
+                // Show farmers who have organic products
+                const organicFarmerIds = RaithuBazaar.products.getAll().filter(p => p.organic).map(p => p.farmer_id);
+                farmers = farmers.filter(f => organicFarmerIds.includes(f.id));
+            }
+            if (currentFarmerFilter === 'top-rated') farmers = farmers.filter(f => f.rating >= 4.5).sort((a, b) => b.rating - a.rating);
+
+            document.getElementById('farmerCount').textContent = `Showing ${farmers.length} farmer${farmers.length !== 1 ? 's' : ''}`;
+
+            if (farmers.length === 0) {
+                document.getElementById('noFarmers').classList.remove('hidden');
+                document.getElementById('farmersGrid').innerHTML = '';
+                return;
+            }
+            document.getElementById('noFarmers').classList.add('hidden');
+
+            document.getElementById('farmersGrid').innerHTML = farmers.map(f => {
+                const tier = RaithuBazaar.trust.getTierInfo(f.id);
+                return `
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                    <div class="bg-gradient-to-r from-forest to-forest-light p-6 text-center text-white">
+                        <img src="${f.image}" alt="${f.name}" class="w-20 h-20 rounded-full object-cover border-4 border-white/30 mx-auto mb-3" onerror="this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?w=400'">
+                        <h3 class="text-lg font-bold">${f.name}</h3>
+                        ${f.nameTE ? `<p class="text-gold text-sm">${f.nameTE}</p>` : ''}
+                        <p class="text-gray-200 text-xs mt-1">📍 ${f.village}, ${f.state}</p>
+                        <span class="${tier.color} px-2 py-0.5 rounded-full text-xs font-bold mt-2 inline-block">${tier.icon} ${tier.label}</span>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-4 mb-4 text-sm">
+                            <span class="text-forest font-bold">⭐ ${f.rating}</span>
+                            <span class="text-gray-400">${f.reviews} reviews</span>
+                            <span class="text-gray-400 text-xs">🌾 ${f.farmSize}</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">${f.bio || ''}</p>
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            ${(f.products || []).map(p => `<span class="bg-mint text-forest text-xs px-2 py-1 rounded-full">${p}</span>`).join('')}
+                        </div>
+                        <a href="farmer-profile.htm?id=${f.id}" class="block w-full text-center py-3 bg-forest-light text-white font-semibold rounded-xl hover:bg-forest transition-all text-sm">View Profile & Products</a>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+    </script>
+</body>
+
+</html>

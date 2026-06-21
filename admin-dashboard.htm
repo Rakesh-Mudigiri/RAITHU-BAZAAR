@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — Raithu Bazaar 🌾</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { forest: { DEFAULT: '#0f4023', light: '#1e7a3f', mid: '#2d9c5b' }, gold: { DEFAULT: '#d4a017', light: '#f0c040', dark: '#b8880f' }, cream: '#fdf8f0', mint: '#f0f9f4' }, fontFamily: { inter: ['Inter', 'sans-serif'] } } } }</script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="font-inter bg-gray-50 text-gray-800">
+    <div id="headerMount"></div>
+
+    <!-- Login Gate -->
+    <div id="loginGate" class="min-h-[70vh] flex items-center justify-center px-4">
+        <div class="bg-white rounded-3xl shadow-xl p-10 max-w-sm w-full text-center">
+            <div
+                class="w-20 h-20 bg-gradient-to-br from-forest to-forest-light rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span class="text-4xl">📊</span>
+            </div>
+            <h1 class="text-2xl font-extrabold text-forest mb-2">Founder Dashboard</h1>
+            <p class="text-gray-400 mb-8 text-sm">Enter admin password to view business metrics</p>
+            <form onsubmit="event.preventDefault(); tryLogin();" class="space-y-4">
+                <input type="password" id="adminPass" placeholder="Admin Password"
+                    class="w-full px-5 py-3.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none text-center bg-gray-50 focus:bg-white transition-colors">
+                <button type="submit"
+                    class="w-full py-3.5 bg-gradient-to-r from-forest to-forest-light text-white font-bold rounded-xl hover:shadow-lg transition-all">Access
+                    Dashboard →</button>
+            </form>
+            <p class="text-gray-300 text-xs mt-4">Password: raithu2026</p>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="adminDash" class="hidden">
+        <section class="bg-gradient-to-r from-forest via-forest-light to-forest text-white py-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight">📊 Founder Dashboard</h1>
+                    <p class="text-white/60 text-sm mt-1">Real-time business metrics for Raithu Bazaar</p>
+                </div>
+                <div class="text-right hidden sm:block">
+                    <p class="text-white/60 text-xs">Last updated</p>
+                    <p class="text-gold font-bold text-sm" id="lastUpdated"></p>
+                </div>
+            </div>
+        </section>
+
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+            <!-- Revenue Cards -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="statCards"></div>
+
+            <!-- Secondary Stats -->
+            <div class="grid grid-cols-3 gap-4" id="secondaryStats"></div>
+
+            <!-- Charts Row -->
+            <div class="grid lg:grid-cols-2 gap-6">
+                <!-- Orders by Zone -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div class="flex items-center justify-between mb-5">
+                        <h2 class="text-base font-bold text-forest">📍 Orders by Zone</h2>
+                        <span class="text-xs text-gray-400">All time</span>
+                    </div>
+                    <div id="zoneChart" class="space-y-3"></div>
+                </div>
+
+                <!-- Top Products -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div class="flex items-center justify-between mb-5">
+                        <h2 class="text-base font-bold text-forest">🏆 Top Products</h2>
+                        <span class="text-xs text-gray-400">By quantity sold</span>
+                    </div>
+                    <div id="topProducts" class="space-y-2"></div>
+                </div>
+            </div>
+
+            <!-- Recent Orders -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                <div class="flex items-center justify-between mb-5">
+                    <h2 class="text-base font-bold text-forest">📜 Recent Orders</h2>
+                    <span class="text-xs text-gray-400" id="orderCountLabel"></span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="text-left text-xs text-gray-400 border-b">
+                                <th class="pb-3 font-medium">Order ID</th>
+                                <th class="pb-3 font-medium">Customer</th>
+                                <th class="pb-3 font-medium">Date</th>
+                                <th class="pb-3 font-medium text-right">Amount</th>
+                                <th class="pb-3 font-medium text-right">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentOrders" class="divide-y divide-gray-50"></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="footerMount"></div>
+    <script src="lang.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('headerMount').innerHTML = RaithuBazaar.ui.getHeaderHTML('');
+            document.getElementById('footerMount').innerHTML = RaithuBazaar.ui.getFooterHTML();
+            RaithuBazaar.ui.initPage();
+
+            const user = RaithuBazaar.auth.getCurrentUser();
+            if (user && user.type === 'admin') {
+                document.getElementById('loginGate').classList.add('hidden');
+                document.getElementById('adminDash').classList.remove('hidden');
+                renderDashboard();
+            }
+        });
+
+        function tryLogin() {
+            const pass = document.getElementById('adminPass').value;
+            if (pass === RaithuBazaar.admin.PASSWORD) {
+                // Save admin session for global routing
+                localStorage.setItem('rb_current_user', JSON.stringify({ name: 'Founder', type: 'admin', id: 'admin_1' }));
+
+                // Re-render header to update the 'My Account' link
+                document.getElementById('headerMount').innerHTML = RaithuBazaar.ui.getHeaderHTML('');
+                RaithuBazaar.ui.initPage();
+
+                document.getElementById('loginGate').classList.add('hidden');
+                document.getElementById('adminDash').classList.remove('hidden');
+                renderDashboard();
+            } else {
+                RaithuBazaar.ui.showToast('Incorrect password ❌');
+            }
+        }
+
+        function renderDashboard() {
+            const s = RaithuBazaar.admin.getStats();
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleString('en-IN', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+            document.getElementById('statCards').innerHTML = [
+                { icon: '💰', label: 'Total GMV', value: '₹' + s.gmv.toLocaleString(), sub: 'Gross value of all orders', color: 'from-yellow-50 to-gold/10', border: 'border-gold/30' },
+                { icon: '📈', label: 'Platform Revenue', value: '₹' + s.revenue.toLocaleString(), sub: '7% of delivered orders', color: 'from-green-50 to-mint', border: 'border-green-200' },
+                { icon: '⏳', label: 'Pending Revenue', value: '₹' + s.pendingRevenue.toLocaleString(), sub: 'From active orders', color: 'from-amber-50 to-yellow-50', border: 'border-amber-200' },
+                { icon: '📦', label: 'Total Orders', value: s.totalOrders, sub: s.deliveredOrders + ' delivered', color: 'from-blue-50 to-indigo-50', border: 'border-blue-200' },
+            ].map(c => `
+                <div class="bg-gradient-to-br ${c.color} rounded-2xl p-5 border ${c.border}">
+                    <div class="flex items-start justify-between mb-3">
+                        <span class="text-2xl">${c.icon}</span>
+                        <span class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">${c.label}</span>
+                    </div>
+                    <p class="text-2xl font-extrabold text-forest mb-0.5">${c.value}</p>
+                    <p class="text-xs text-gray-400">${c.sub}</p>
+                </div>`).join('');
+
+            document.getElementById('secondaryStats').innerHTML = [
+                { icon: '🌾', label: 'Active Farmers', value: s.activeFarmers, color: 'text-forest-light' },
+                { icon: '👥', label: 'Captains', value: s.activeCaptains, color: 'text-gold' },
+                { icon: '🛒', label: 'Products', value: s.totalProducts, color: 'text-blue-600' },
+            ].map(c => `
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-lg">${c.icon}</div>
+                    <div><p class="text-xs text-gray-400 mb-0.5">${c.label}</p><p class="text-xl font-extrabold ${c.color}">${c.value}</p></div>
+                </div>`).join('');
+
+            // Zone chart
+            const maxZoneOrders = Math.max(...s.ordersByZone.map(z => z.orders), 1);
+            document.getElementById('zoneChart').innerHTML = s.ordersByZone.map(z => {
+                const pct = Math.round((z.orders / maxZoneOrders) * 100);
+                return `<div class="flex items-center gap-3">
+                    <span class="w-32 text-xs font-medium text-gray-500 text-right shrink-0">${z.zone}</span>
+                    <div class="flex-1 bg-gray-100 rounded-full h-5 overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-forest-light to-gold rounded-full flex items-center justify-end pr-2 text-[10px] text-white font-bold" style="width:${Math.max(pct, 8)}%;min-width:28px">${z.orders}</div>
+                    </div>
+                </div>`;
+            }).join('');
+
+            // Top products
+            document.getElementById('topProducts').innerHTML = (s.topProducts || []).map((tp, i) => {
+                if (!tp.product) return '';
+                const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+                return `<div class="flex items-center gap-3 py-2.5 ${i > 0 ? 'border-t border-gray-50' : ''}">
+                    <span class="text-lg w-7 text-center">${medals[i] || ''}</span>
+                    <img src="${tp.product.image}" class="w-9 h-9 rounded-lg object-cover shrink-0" onerror="this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?w=400'">
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-forest truncate">${tp.product.name}</p>
+                        <p class="text-xs text-gray-400">₹${tp.product.price}/${tp.product.unit}</p>
+                    </div>
+                    <div class="text-right shrink-0">
+                        <p class="text-sm font-bold text-forest">${tp.qty}</p>
+                        <p class="text-[10px] text-gray-400">sold</p>
+                    </div>
+                </div>`;
+            }).join('') || '<p class="text-gray-400 text-sm text-center py-8">No sales data yet</p>';
+
+            // Recent orders
+            const allOrders = RaithuBazaar.orders.getAll().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 15);
+            document.getElementById('orderCountLabel').textContent = 'Showing ' + allOrders.length + ' recent';
+            const statusColors = { placed: 'bg-blue-50 text-blue-600', confirmed: 'bg-emerald-50 text-emerald-600', harvesting: 'bg-amber-50 text-amber-600', dispatched: 'bg-orange-50 text-orange-600', delivered: 'bg-green-50 text-green-700' };
+            document.getElementById('recentOrders').innerHTML = allOrders.map(o => {
+                const sc = statusColors[o.status] || 'bg-gray-50 text-gray-500';
+                const date = new Date(o.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+                return `<tr class="hover:bg-gray-50/50">
+                    <td class="py-3"><span class="font-bold text-forest">${o.id}</span></td>
+                    <td class="py-3 text-gray-600">${o.customerName || 'Guest'}</td>
+                    <td class="py-3 text-gray-400">${date}</td>
+                    <td class="py-3 text-right font-bold text-forest">₹${o.total}</td>
+                    <td class="py-3 text-right"><span class="px-2.5 py-1 rounded-full text-xs font-bold ${sc}">${o.status}</span></td>
+                </tr>`;
+            }).join('') || '<tr><td colspan="5" class="py-8 text-center text-gray-400">No orders yet</td></tr>';
+        }
+    </script>
+</body>
+
+</html>

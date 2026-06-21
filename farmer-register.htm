@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Registration — Raithu Bazaar 🌾</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { forest: { DEFAULT: '#0f4023', light: '#1e7a3f', mid: '#2d9c5b' }, gold: { DEFAULT: '#d4a017', light: '#f0c040', dark: '#b8880f' }, cream: '#fdf8f0', mint: '#f0f9f4' }, fontFamily: { inter: ['Inter', 'sans-serif'] } } } }</script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="font-inter bg-gray-50 text-gray-800">
+    <div id="headerMount"></div>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid lg:grid-cols-5 gap-8">
+            <!-- Info Panel -->
+            <div class="lg:col-span-2">
+                <div class="bg-gradient-to-br from-forest to-forest-light rounded-2xl p-8 text-white sticky top-24">
+                    <div class="text-5xl mb-4">👨‍🌾</div>
+                    <h2 class="text-2xl font-bold mb-3">Join Raithu Bazaar</h2>
+                    <p class="text-gray-200 text-sm mb-6">Register as a farmer and start selling directly to customers.
+                        No middlemen, double your income!</p>
+                    <div class="space-y-4 text-sm">
+                        <div class="flex items-center gap-3"><span
+                                class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-sm">✅</span><span>Free
+                                registration — no fees ever</span></div>
+                        <div class="flex items-center gap-3"><span
+                                class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-sm">💰</span><span>Earn
+                                2x more than mandi prices</span></div>
+                        <div class="flex items-center gap-3"><span
+                                class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-sm">📱</span><span>WhatsApp/SMS
+                                order alerts in Telugu</span></div>
+                        <div class="flex items-center gap-3"><span
+                                class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-sm">🏦</span><span>Bank
+                                transfer within 2 days</span></div>
+                        <div class="flex items-center gap-3"><span
+                                class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-sm">📊</span><span>Dashboard
+                                to manage products & orders</span></div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-white/20">
+                        <p class="text-xs text-gray-300">Already registered?</p>
+                        <button onclick="promptFarmerLogin()"
+                            class="mt-2 w-full py-2.5 bg-white/20 text-white font-semibold rounded-xl hover:bg-white/30 transition-all text-sm">Login
+                            to Dashboard →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h1 class="text-2xl font-bold text-forest mb-6">Farmer Registration</h1>
+                    <form id="regForm" class="space-y-6" onsubmit="event.preventDefault(); registerFarmer();">
+                        <!-- Personal Info -->
+                        <div>
+                            <h3 class="font-semibold text-forest text-sm mb-3 flex items-center gap-2">👤 Personal
+                                Information</h3>
+                            <div class="space-y-4">
+                                <div class="grid sm:grid-cols-2 gap-4">
+                                    <input type="text" id="farmerName" required placeholder="Full Name *"
+                                        class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                                    <input type="tel" id="farmerPhone" required placeholder="Phone Number *"
+                                        class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                                </div>
+                                <input type="text" id="farmerAadhaar" placeholder="Aadhaar Number (12 digits)"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                                <input type="password" id="farmerPassword" required placeholder="Create Password *"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                            </div>
+                        </div>
+
+                        <!-- Farm Info -->
+                        <div>
+                            <h3 class="font-semibold text-forest text-sm mb-3 flex items-center gap-2">🌾 Farm Details
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="grid sm:grid-cols-2 gap-4">
+                                    <input type="text" id="village" required placeholder="Village/Town *"
+                                        class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                                    <input type="text" id="district" required placeholder="District *"
+                                        class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                                </div>
+                                <select id="state"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                                    <option value="Telangana">Telangana</option>
+                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-2">What do you grow?
+                                        (Select all)</label>
+                                    <div class="grid grid-cols-2 gap-2" id="categoryCheckboxes"></div>
+                                </div>
+                                <textarea id="story" rows="3" placeholder="Tell us your farming story (optional)..."
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none resize-none"></textarea>
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="checkbox" id="isOrganic" class="w-4 h-4 text-forest-light rounded">
+                                    <span class="text-sm text-gray-700">🌿 I practice organic/natural farming</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Bank Info -->
+                        <div>
+                            <h3 class="font-semibold text-forest text-sm mb-3 flex items-center gap-2">🏦 Bank Details
+                                (for payments)</h3>
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <input type="text" id="bankName" placeholder="Bank Name"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                                <input type="text" id="accountNumber" placeholder="Account Number"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                                <input type="text" id="ifsc" placeholder="IFSC Code"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                                <input type="text" id="upiId" placeholder="UPI ID (optional)"
+                                    class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                            </div>
+                        </div>
+
+                        <div id="regError" class="text-red-500 text-sm hidden"></div>
+
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" id="terms" required class="w-4 h-4 text-forest-light rounded mt-1">
+                            <span class="text-xs text-gray-600">I agree to the <a href="terms.htm"
+                                    class="text-forest-light font-medium">Terms & Conditions</a> and <a
+                                    href="privacy.htm" class="text-forest-light font-medium">Privacy Policy</a>. I
+                                authorize Raithu Bazaar to verify my details.</span>
+                        </label>
+
+                        <button type="submit"
+                            class="w-full py-4 bg-forest-light text-white font-bold rounded-xl hover:bg-forest transition-all">Register
+                            & Start Selling 🌾</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footerMount"></div>
+
+    <script src="lang.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('headerMount').innerHTML = RaithuBazaar.ui.getHeaderHTML('for-farmers');
+            document.getElementById('footerMount').innerHTML = RaithuBazaar.ui.getFooterHTML();
+            RaithuBazaar.ui.initPage();
+
+            // If already logged in as farmer, redirect
+            const u = RaithuBazaar.auth.getCurrentUser();
+            if (u && u.type === 'farmer') { location.href = 'farmer-dashboard.htm'; return; }
+
+            // Build category checkboxes
+            document.getElementById('categoryCheckboxes').innerHTML = RaithuBazaar.CATEGORIES.map(c =>
+                `<label class="flex items-center gap-2 p-2 rounded-lg hover:bg-mint cursor-pointer">
+        <input type="checkbox" value="${c.id}" name="categories" class="w-4 h-4 text-forest-light rounded">
+        <span class="text-sm">${c.emoji} ${c.name}</span>
+      </label>`
+            ).join('');
+        });
+
+        function registerFarmer() {
+            const selectedCats = Array.from(document.querySelectorAll('input[name=categories]:checked')).map(cb => cb.value);
+            const data = {
+                name: document.getElementById('farmerName').value,
+                phone: document.getElementById('farmerPhone').value,
+                aadhaar: document.getElementById('farmerAadhaar').value,
+                password: document.getElementById('farmerPassword').value,
+                village: document.getElementById('village').value,
+                district: document.getElementById('district').value,
+                state: document.getElementById('state').value,
+                categories: selectedCats,
+                bio: document.getElementById('story').value,
+                organic: document.getElementById('isOrganic').checked,
+                products: selectedCats.map(c => RaithuBazaar.CATEGORIES.find(cat => cat.id === c)?.name || c),
+                bank: {
+                    name: document.getElementById('bankName').value,
+                    account: document.getElementById('accountNumber').value,
+                    ifsc: document.getElementById('ifsc').value,
+                    upi: document.getElementById('upiId').value
+                },
+                farmSize: '0 acres',
+            };
+
+            const result = RaithuBazaar.auth.registerFarmer(data);
+            if (result) {
+                RaithuBazaar.ui.showToast('Registration successful! Welcome! 🌾');
+                setTimeout(() => { location.href = 'farmer-dashboard.htm'; }, 1000);
+            }
+        }
+
+        function promptFarmerLogin() {
+            const phone = prompt('Enter your registered phone number:');
+            if (phone) {
+                const user = RaithuBazaar.auth.loginFarmer(phone);
+                if (user) { location.href = 'farmer-dashboard.htm'; }
+                else { RaithuBazaar.ui.showToast('Phone not found. Register first.'); }
+            }
+        }
+    </script>
+</body>
+
+</html>

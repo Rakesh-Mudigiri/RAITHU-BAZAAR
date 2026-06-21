@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become an Apartment Captain — Raithu Bazaar 🌾</title>
+    <meta name="description"
+        content="Join Raithu Bazaar as an Apartment Captain. Earn ₹2/kg commission by distributing fresh produce in your society.">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { forest: { DEFAULT: '#0f4023', light: '#1e7a3f', mid: '#2d9c5b' }, gold: { DEFAULT: '#d4a017', light: '#f0c040', dark: '#b8880f' }, cream: '#fdf8f0', mint: '#f0f9f4' }, fontFamily: { inter: ['Inter', 'sans-serif'] } } } }</script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="font-inter bg-gray-50 text-gray-800">
+    <div id="headerMount"></div>
+
+    <section class="bg-gradient-to-r from-forest to-forest-light text-white py-16">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h1 class="text-4xl font-extrabold mb-3">👥 Become an Apartment Captain</h1>
+            <p class="text-lg text-gray-200">Distribute fresh produce in your society. Earn ₹2/kg commission.</p>
+            <p class="text-gold mt-2">అపార్ట్‌మెంట్ కెప్టెన్ అవండి • अपार्टमेंट कैप्टन बनें</p>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="max-w-5xl mx-auto px-4 py-12">
+        <h2 class="text-2xl font-bold text-forest text-center mb-8">How Captain Model Works</h2>
+        <div class="grid sm:grid-cols-3 gap-6 mb-12">
+            <div class="bg-white rounded-2xl shadow-md p-6 text-center card-hover">
+                <div class="text-4xl mb-3">🚛</div>
+                <h3 class="font-bold text-forest mb-2">We Deliver Bulk</h3>
+                <p class="text-gray-500 text-sm">50-100kg delivered to your apartment complex in one truck</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-md p-6 text-center card-hover">
+                <div class="text-4xl mb-3">📦</div>
+                <h3 class="font-bold text-forest mb-2">You Distribute</h3>
+                <p class="text-gray-500 text-sm">Hand out pre-packed orders to residents from your lobby or parking area
+                </p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-md p-6 text-center card-hover">
+                <div class="text-4xl mb-3">💰</div>
+                <h3 class="font-bold text-forest mb-2">You Earn</h3>
+                <p class="text-gray-500 text-sm">₹2/kg handled — ₹100/day average. Weekly payout to your bank.</p>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="max-w-lg mx-auto bg-white rounded-2xl shadow-lg p-8">
+            <h2 class="text-xl font-bold text-forest mb-6">Register as Captain</h2>
+            <form onsubmit="event.preventDefault(); registerCaptain();" class="space-y-4" id="captainForm">
+                <input type="text" id="capName" required placeholder="Your Full Name *"
+                    class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                <input type="tel" id="capPhone" required placeholder="Phone Number * (WhatsApp preferred)"
+                    class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                <input type="text" id="capApartment" required placeholder="Apartment / Society Name *"
+                    class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                <div class="grid grid-cols-2 gap-3">
+                    <input type="text" id="capCity" required placeholder="City *" value="Hyderabad"
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                    <input type="text" id="capPincode" required placeholder="PIN Code *" maxlength="6"
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                </div>
+                <input type="number" id="capFlats" placeholder="No. of flats in your society"
+                    class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                <select id="capRole"
+                    class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                    <option value="apartment">Apartment Captain (1 building)</option>
+                    <option value="society">Society Captain (entire complex)</option>
+                </select>
+                <button type="submit"
+                    class="w-full py-4 bg-gold text-forest font-bold rounded-xl hover:bg-gold-dark hover:text-white transition-all text-sm">Register
+                    as Captain 🚀</button>
+            </form>
+
+            <div id="captainSuccess" class="hidden text-center py-8">
+                <div class="text-6xl mb-4">🎉</div>
+                <h3 class="text-xl font-bold text-forest mb-2">You're Registered!</h3>
+                <p class="text-gray-500 text-sm mb-1">Captain ID: <span id="capId"
+                        class="font-bold text-forest-light"></span></p>
+                <p class="text-gray-500 text-sm mb-6">We'll reach out on WhatsApp to confirm your first delivery.</p>
+                <a href="captain-dashboard.htm"
+                    class="px-6 py-3 bg-forest-light text-white font-bold rounded-xl hover:bg-forest transition-all">Open
+                    Captain Dashboard →</a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footerMount"></div>
+    <script src="lang.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('headerMount').innerHTML = RaithuBazaar.ui.getHeaderHTML('');
+            document.getElementById('footerMount').innerHTML = RaithuBazaar.ui.getFooterHTML();
+            RaithuBazaar.ui.initPage();
+        });
+
+        function registerCaptain() {
+            const data = {
+                name: document.getElementById('capName').value,
+                phone: document.getElementById('capPhone').value,
+                apartment: document.getElementById('capApartment').value,
+                city: document.getElementById('capCity').value,
+                pincode: document.getElementById('capPincode').value,
+                flats: parseInt(document.getElementById('capFlats').value) || 0,
+                role: document.getElementById('capRole').value
+            };
+            const captain = RaithuBazaar.captains.register(data);
+            document.getElementById('capId').textContent = captain.id;
+            document.getElementById('captainForm').classList.add('hidden');
+            document.getElementById('captainSuccess').classList.remove('hidden');
+            RaithuBazaar.ui.showToast('Captain registered successfully! 🎉');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Stories — Raithu Bazaar 🌾</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { forest: { DEFAULT: '#0f4023', light: '#1e7a3f', mid: '#2d9c5b' }, gold: { DEFAULT: '#d4a017', light: '#f0c040', dark: '#b8880f' }, cream: '#fdf8f0', mint: '#f0f9f4' }, fontFamily: { inter: ['Inter', 'sans-serif'] } } } }</script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="font-inter bg-gray-50 text-gray-800">
+    <div id="headerMount"></div>
+    <section class="bg-gradient-to-r from-forest to-forest-light text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">🏆 Success Stories</h1>
+            <p class="text-xl text-gray-200">Real farmers, real impact | నిజమైన రైతులు, నిజమైన ప్రభావం</p>
+        </div>
+    </section>
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="space-y-12" id="storiesContainer"></div>
+        <div class="mt-16 bg-gradient-to-r from-forest to-forest-light rounded-3xl p-8 lg:p-12 text-center text-white">
+            <h2 class="text-3xl font-bold mb-4">Start Your Success Story</h2>
+            <p class="text-gray-200 mb-8">Join 500+ farmers earning 2x more on Raithu Bazaar</p>
+            <a href="farmer-register.htm"
+                class="inline-block px-10 py-4 bg-gold text-forest font-bold rounded-xl text-lg hover:bg-gold-dark hover:text-white transition-all">Register
+                Now — It's Free!</a>
+        </div>
+    </main>
+    <div id="footerMount"></div>
+    <script src="lang.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('headerMount').innerHTML = RaithuBazaar.ui.getHeaderHTML('success-stories');
+            document.getElementById('footerMount').innerHTML = RaithuBazaar.ui.getFooterHTML();
+            RaithuBazaar.ui.initPage();
+            const farmers = RaithuBazaar.farmers.getAll();
+            document.getElementById('storiesContainer').innerHTML = farmers.map((f, i) => `
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden ${i % 2 === 0 ? '' : 'lg:flex-row-reverse'} lg:flex">
+                    <div class="lg:w-1/3 bg-gradient-to-br from-forest to-forest-light p-8 text-white flex flex-col items-center justify-center text-center">
+                        <img src="${f.image}" alt="${f.name}" class="w-24 h-24 rounded-full object-cover border-4 border-white/30 mb-4" onerror="this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?w=400'">
+                        <h3 class="text-xl font-bold">${f.name}</h3>
+                        ${f.nameTE ? `<p class="text-gold text-sm">${f.nameTE}</p>` : ''}
+                        <p class="text-gray-200 text-xs mt-1">${f.village}, ${f.state}</p>
+                        <div class="flex gap-4 mt-4 text-sm">
+                            <span>⭐ ${f.rating}</span>
+                            <span>🌾 ${f.farmSize}</span>
+                        </div>
+                    </div>
+                    <div class="lg:w-2/3 p-8">
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            ${(f.products || []).map(p => `<span class="bg-mint text-forest text-xs px-2 py-1 rounded-full">${p}</span>`).join('')}
+                        </div>
+                        <p class="text-gray-700 text-lg leading-relaxed mb-4">"${f.bio}"</p>
+                        ${f.bioTE ? `<p class="text-gold text-sm italic mb-4">"${f.bioTE}"</p>` : ''}
+                        <div class="grid grid-cols-3 gap-4 bg-mint/50 rounded-xl p-4 mt-4">
+                            <div class="text-center"><div class="text-xl font-bold text-forest">2x</div><p class="text-gray-500 text-xs">Income Growth</p></div>
+                            <div class="text-center"><div class="text-xl font-bold text-forest">${f.reviews}+</div><p class="text-gray-500 text-xs">Happy Families</p></div>
+                            <div class="text-center"><div class="text-xl font-bold text-forest">${f.certified ? 'Yes' : 'Growing'}</div><p class="text-gray-500 text-xs">Certified</p></div>
+                        </div>
+                        <a href="farmer-profile.htm?id=${f.id}" class="inline-block mt-4 text-forest-light font-medium text-sm hover:underline">View Profile →</a>
+                    </div>
+                </div>
+            `).join('');
+        });
+    </script>
+</body>
+
+</html>

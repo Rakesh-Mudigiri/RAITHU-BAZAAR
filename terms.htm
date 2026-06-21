@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service — Raithu Bazaar 🌾</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { forest: { DEFAULT: '#0f4023', light: '#1e7a3f', mid: '#2d9c5b' }, gold: { DEFAULT: '#d4a017', light: '#f0c040', dark: '#b8880f' }, cream: '#fdf8f0', mint: '#f0f9f4' }, fontFamily: { inter: ['Inter', 'sans-serif'] } } } }</script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="font-inter bg-gray-50 text-gray-800">
+    <div id="headerMount"></div>
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h1 class="text-3xl font-bold text-forest mb-8">📋 Terms of Service</h1>
+        <div class="bg-white rounded-2xl shadow-md p-8 prose prose-sm max-w-none">
+            <p class="text-gray-500 text-sm mb-6">Last updated: February 2026</p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">1. Acceptance of Terms</h2>
+            <p class="text-gray-600">By using Raithu Bazaar, you agree to these terms. If you disagree, please do not
+                use our platform.</p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">2. Our Services</h2>
+            <p class="text-gray-600">Raithu Bazaar is a marketplace connecting farmers directly with customers. We
+                facilitate transactions, delivery, and payments but are not the producer of any agricultural products.
+            </p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">3. For Customers</h2>
+            <p class="text-gray-600">Orders are confirmed once payment is processed. Delivery timelines are 12-24 hours
+                from harvest. Prices are transparent and include all applicable charges. Free delivery on orders above
+                ₹300.</p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">4. For Farmers</h2>
+            <p class="text-gray-600">Farmers must provide accurate product information. A 7% platform fee is deducted
+                from each sale. Payments are processed within 2 business days to the registered bank account.</p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">5. Quality Guarantee</h2>
+            <p class="text-gray-600">We guarantee freshness. If any product arrives damaged or stale, report within 2
+                hours for immediate replacement or full refund.</p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">6. Cancellation & Refunds</h2>
+            <p class="text-gray-600">Orders can be cancelled within 30 minutes of placement. Full refunds are processed
+                within 3-5 business days to the original payment method.</p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">7. Governing Law</h2>
+            <p class="text-gray-600">These terms are governed by the laws of India. Disputes shall be resolved under the
+                jurisdiction of courts in Hyderabad, Telangana.</p>
+        </div>
+    </main>
+    <div id="footerMount"></div>
+    <script src="lang.js"></script>
+    <script src="app.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => { document.getElementById('headerMount').innerHTML = RaithuBazaar.ui.getHeaderHTML('terms'); document.getElementById('footerMount').innerHTML = RaithuBazaar.ui.getFooterHTML(); RaithuBazaar.ui.initPage(); });</script>
+</body>
+
+</html>

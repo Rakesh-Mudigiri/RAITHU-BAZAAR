@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog — Raithu Bazaar 🌾</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { forest: { DEFAULT: '#0f4023', light: '#1e7a3f', mid: '#2d9c5b' }, gold: { DEFAULT: '#d4a017', light: '#f0c040', dark: '#b8880f' }, cream: '#fdf8f0', mint: '#f0f9f4' }, fontFamily: { inter: ['Inter', 'sans-serif'] } } } }</script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="font-inter bg-gray-50 text-gray-800">
+    <div id="headerMount"></div>
+    <section class="bg-gradient-to-r from-forest to-forest-light text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">📰 Blog & Stories</h1>
+            <p class="text-xl text-gray-200">Farm stories, recipes & updates | వ్యవసాయ కథలు & వంటకాలు</p>
+        </div>
+    </section>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Category Filters -->
+        <div class="flex flex-wrap gap-2 mb-8">
+            <button onclick="filterBlog('all')"
+                class="blog-filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-forest text-white"
+                data-filter="all">All Posts</button>
+            <button onclick="filterBlog('farming')"
+                class="blog-filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-gray-100 text-gray-600"
+                data-filter="farming">🌾 Farming Tips</button>
+            <button onclick="filterBlog('recipes')"
+                class="blog-filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-gray-100 text-gray-600"
+                data-filter="recipes">🍳 Recipes</button>
+            <button onclick="filterBlog('stories')"
+                class="blog-filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-gray-100 text-gray-600"
+                data-filter="stories">📖 Farmer Stories</button>
+            <button onclick="filterBlog('health')"
+                class="blog-filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-gray-100 text-gray-600"
+                data-filter="health">💚 Health</button>
+            <button onclick="filterBlog('guides')"
+                class="blog-filter-btn px-4 py-2 rounded-full text-xs font-semibold bg-gray-100 text-gray-600"
+                data-filter="guides">📋 Guides</button>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="blogGrid">
+            <article class="bg-white rounded-2xl shadow-md overflow-hidden card-hover cursor-pointer"
+                data-category="farming" onclick="RaithuBazaar.ui.showToast('Full article coming soon! 📰')">
+                <img src="https://images.unsplash.com/photo-1574943320219-5534f6b74b90?w=600"
+                    class="w-full h-48 object-cover" alt="Organic Farming">
+                <div class="p-6">
+                    <span class="text-gold text-xs font-bold">FARMING TIPS</span>
+                    <h2 class="text-lg font-bold text-forest mt-2 mb-2">Why Organic Farming is the Future of India</h2>
+                    <p class="text-gray-500 text-sm mb-4">Learn how organic farming practices are helping Telangana
+                        farmers earn more while producing healthier food...</p>
+                    <div class="flex items-center gap-3 text-xs text-gray-400"><span>Feb 15,
+                            2026</span><span>•</span><span>5 min read</span></div>
+                </div>
+            </article>
+            <article class="bg-white rounded-2xl shadow-md overflow-hidden card-hover cursor-pointer"
+                data-category="recipes" onclick="RaithuBazaar.ui.showToast('Full article coming soon! 📰')">
+                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600"
+                    class="w-full h-48 object-cover" alt="Recipes">
+                <div class="p-6">
+                    <span class="text-forest-light text-xs font-bold">RECIPES</span>
+                    <h2 class="text-lg font-bold text-forest mt-2 mb-2">5 Traditional Telugu Recipes with Fresh Produce
+                    </h2>
+                    <p class="text-gray-500 text-sm mb-4">Authentic recipes using seasonal vegetables straight from
+                        farm. Includes Gongura Pachadi, Vankaya Kura, and more...</p>
+                    <div class="flex items-center gap-3 text-xs text-gray-400"><span>Feb 10,
+                            2026</span><span>•</span><span>8 min read</span></div>
+                </div>
+            </article>
+            <article class="bg-white rounded-2xl shadow-md overflow-hidden card-hover cursor-pointer"
+                data-category="stories" onclick="RaithuBazaar.ui.showToast('Full article coming soon! 📰')">
+                <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600"
+                    class="w-full h-48 object-cover" alt="Farmer Story">
+                <div class="p-6">
+                    <span class="text-gold text-xs font-bold">FARMER STORY</span>
+                    <h2 class="text-lg font-bold text-forest mt-2 mb-2">From ₹8/kg to ₹40/kg: Lakshman's Journey</h2>
+                    <p class="text-gray-500 text-sm mb-4">How a Warangal farmer tripled his income by selling directly
+                        through Raithu Bazaar without middlemen...</p>
+                    <div class="flex items-center gap-3 text-xs text-gray-400"><span>Feb 5,
+                            2026</span><span>•</span><span>6 min read</span></div>
+                </div>
+            </article>
+            <article class="bg-white rounded-2xl shadow-md overflow-hidden card-hover cursor-pointer"
+                data-category="guides" onclick="RaithuBazaar.ui.showToast('Full article coming soon! 📰')">
+                <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=600"
+                    class="w-full h-48 object-cover" alt="Seasonal Guide">
+                <div class="p-6">
+                    <span class="text-forest-light text-xs font-bold">SEASONAL GUIDE</span>
+                    <h2 class="text-lg font-bold text-forest mt-2 mb-2">What's in Season: February 2026</h2>
+                    <p class="text-gray-500 text-sm mb-4">Tomatoes, drumstick, and fresh turmeric are at their peak.
+                        Here's your complete guide to seasonal eating...</p>
+                    <div class="flex items-center gap-3 text-xs text-gray-400"><span>Feb 1,
+                            2026</span><span>•</span><span>4 min read</span></div>
+                </div>
+            </article>
+            <article class="bg-white rounded-2xl shadow-md overflow-hidden card-hover cursor-pointer"
+                data-category="guides" onclick="RaithuBazaar.ui.showToast('Full article coming soon! 📰')">
+                <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600"
+                    class="w-full h-48 object-cover" alt="Rice Guide">
+                <div class="p-6">
+                    <span class="text-gold text-xs font-bold">FOOD GUIDE</span>
+                    <h2 class="text-lg font-bold text-forest mt-2 mb-2">Sona Masuri vs Basmati: Which Rice is Right for
+                        You?</h2>
+                    <p class="text-gray-500 text-sm mb-4">A comprehensive comparison of India's most popular rice
+                        varieties, their nutritional value, and best uses...</p>
+                    <div class="flex items-center gap-3 text-xs text-gray-400"><span>Jan 25,
+                            2026</span><span>•</span><span>7 min read</span></div>
+                </div>
+            </article>
+            <article class="bg-white rounded-2xl shadow-md overflow-hidden card-hover cursor-pointer"
+                data-category="health" onclick="RaithuBazaar.ui.showToast('Full article coming soon! 📰')">
+                <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=600"
+                    class="w-full h-48 object-cover" alt="Ghee">
+                <div class="p-6">
+                    <span class="text-forest-light text-xs font-bold">HEALTH</span>
+                    <h2 class="text-lg font-bold text-forest mt-2 mb-2">Pure Desi Ghee: Health Benefits You Didn't Know
+                    </h2>
+                    <p class="text-gray-500 text-sm mb-4">Why traditional bilona ghee is a superfood. Ayurvedic
+                        benefits, cooking uses, and how to spot pure ghee...</p>
+                    <div class="flex items-center gap-3 text-xs text-gray-400"><span>Jan 20,
+                            2026</span><span>•</span><span>5 min read</span></div>
+                </div>
+            </article>
+        </div>
+    </main>
+    <div id="footerMount"></div>
+    <script src="lang.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('headerMount').innerHTML = RaithuBazaar.ui.getHeaderHTML('blog');
+            document.getElementById('footerMount').innerHTML = RaithuBazaar.ui.getFooterHTML();
+            RaithuBazaar.ui.initPage();
+        });
+
+        function filterBlog(category) {
+            document.querySelectorAll('.blog-filter-btn').forEach(btn => {
+                const isActive = btn.getAttribute('data-filter') === category;
+                btn.className = `blog-filter-btn px-4 py-2 rounded-full text-xs font-semibold ${isActive ? 'bg-forest text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'} transition-all`;
+            });
+            document.querySelectorAll('#blogGrid article').forEach(article => {
+                if (category === 'all' || article.getAttribute('data-category') === category) {
+                    article.style.display = '';
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing & Fees — Raithu Bazaar 🌾</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { forest: { DEFAULT: '#0f4023', light: '#1e7a3f', mid: '#2d9c5b' }, gold: { DEFAULT: '#d4a017', light: '#f0c040', dark: '#b8880f' }, cream: '#fdf8f0', mint: '#f0f9f4' }, fontFamily: { inter: ['Inter', 'sans-serif'] } } } }</script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="font-inter bg-gray-50 text-gray-800">
+    <div id="headerMount"></div>
+    <section class="bg-gradient-to-r from-forest to-forest-light text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Transparent Pricing</h1>
+            <p class="text-xl text-gray-200">No hidden fees. No surprises. | దాచిన ఫీజులు లేవు</p>
+        </div>
+    </section>
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-t-4 border-gold">
+                <h2 class="text-xl font-bold text-forest mb-4">For Farmers</h2>
+                <div class="text-center mb-6">
+                    <span class="text-5xl font-extrabold text-forest">7%</span>
+                    <p class="text-gray-500 text-sm mt-1">Platform fee per sale</p>
+                    <p class="text-gold text-xs">ప్రతి అమ్మకానికి 7% ప్లాట్‌ఫార్మ్ ఫీ</p>
+                </div>
+                <ul class="space-y-3 text-sm text-gray-600">
+                    <li class="flex items-center gap-2">✅ Free registration</li>
+                    <li class="flex items-center gap-2">✅ Free product listing</li>
+                    <li class="flex items-center gap-2">✅ Free dashboard access</li>
+                    <li class="flex items-center gap-2">✅ Free WhatsApp notifications</li>
+                    <li class="flex items-center gap-2">✅ Payment within 2 business days</li>
+                    <li class="flex items-center gap-2">✅ No monthly/yearly charges</li>
+                </ul>
+                <a href="farmer-register.htm"
+                    class="block w-full text-center mt-6 py-3.5 bg-gold text-forest font-bold rounded-xl hover:bg-gold-dark hover:text-white transition-all">Register
+                    Free</a>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-t-4 border-forest-light">
+                <h2 class="text-xl font-bold text-forest mb-4">For Customers</h2>
+                <div class="text-center mb-6">
+                    <span class="text-5xl font-extrabold text-forest">₹0</span>
+                    <p class="text-gray-500 text-sm mt-1">Extra charges</p>
+                    <p class="text-gold text-xs">అదనపు ఛార్జీలు లేవు</p>
+                </div>
+                <ul class="space-y-3 text-sm text-gray-600">
+                    <li class="flex items-center gap-2">✅ Pay only product price</li>
+                    <li class="flex items-center gap-2">✅ Free delivery above ₹300</li>
+                    <li class="flex items-center gap-2">✅ ₹30 delivery below ₹300</li>
+                    <li class="flex items-center gap-2">✅ No membership fees</li>
+                    <li class="flex items-center gap-2">✅ No hidden service charges</li>
+                    <li class="flex items-center gap-2">✅ 100% refund guarantee</li>
+                </ul>
+                <a href="shop.htm"
+                    class="block w-full text-center mt-6 py-3.5 bg-forest-light text-white font-bold rounded-xl hover:bg-forest transition-all">Start
+                    Shopping</a>
+            </div>
+        </div>
+        <div class="bg-cream rounded-3xl p-8 text-center">
+            <h3 class="text-xl font-bold text-forest mb-3">Compare: Mandi vs Raithu Bazaar</h3>
+            <p class="text-gray-500 text-sm mb-2">Mandi commission: 40-60% | Raithu Bazaar: Only 7%</p>
+            <p class="text-forest-light font-bold">Farmers keep 93% of every sale on Raithu Bazaar!</p>
+        </div>
+    </main>
+    <div id="footerMount"></div>
+    <script src="lang.js"></script>
+    <script src="app.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => { document.getElementById('headerMount').innerHTML = RaithuBazaar.ui.getHeaderHTML('pricing'); document.getElementById('footerMount').innerHTML = RaithuBazaar.ui.getFooterHTML(); RaithuBazaar.ui.initPage(); });</script>
+</body>
+
+</html>

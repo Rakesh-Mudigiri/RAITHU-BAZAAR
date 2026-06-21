@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracking — Raithu Bazaar 🌾</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { forest: { DEFAULT: '#0f4023', light: '#1e7a3f', mid: '#2d9c5b' }, gold: { DEFAULT: '#d4a017', light: '#f0c040', dark: '#b8880f' }, cream: '#fdf8f0', mint: '#f0f9f4' }, fontFamily: { inter: ['Inter', 'sans-serif'] } } } }</script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="font-inter bg-gray-50 text-gray-800">
+    <div id="headerMount"></div>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h1 class="text-3xl font-bold text-forest mb-8">📦 Order Tracking</h1>
+
+        <div id="searchSection" class="bg-white rounded-2xl shadow-md p-6 mb-8">
+            <h3 class="font-bold text-forest mb-3">Track Your Order</h3>
+            <form onsubmit="event.preventDefault(); trackOrder(document.getElementById('orderIdInput').value);"
+                class="flex gap-3">
+                <input type="text" id="orderIdInput" placeholder="Enter Order ID (e.g. RB-D001)"
+                    class="flex-1 px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none">
+                <button type="submit"
+                    class="px-6 py-3 bg-forest-light text-white font-bold rounded-xl hover:bg-forest transition-all text-sm">Track</button>
+            </form>
+        </div>
+
+        <div id="orderDetail" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-md p-6">
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-forest">Order <span id="displayOrderId"></span></h2>
+                        <p class="text-gray-400 text-sm mt-1" id="orderDate"></p>
+                    </div>
+                    <span id="statusBadge" class="px-4 py-2 rounded-full text-sm font-bold"></span>
+                </div>
+                <div class="relative pl-8 space-y-6 mb-8" id="timeline"></div>
+                <h3 class="font-bold text-forest mb-3">Items Ordered</h3>
+                <div class="space-y-3 mb-6" id="orderItems"></div>
+                <div class="bg-mint rounded-xl p-4 space-y-2 text-sm">
+                    <div class="flex justify-between"><span class="text-gray-600">Subtotal</span><span
+                            id="orderSubtotal" class="font-semibold"></span></div>
+                    <div class="flex justify-between"><span class="text-gray-600">Delivery</span><span
+                            id="orderDelivery" class="font-semibold"></span></div>
+                    <div class="flex justify-between border-t border-forest-light/20 pt-2"><span
+                            class="font-bold text-forest">Total</span><span id="orderTotal"
+                            class="font-bold text-forest text-lg"></span></div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-md p-6">
+                <h3 class="font-bold text-forest mb-3">📍 Delivery Address</h3>
+                <p id="deliveryAddress" class="text-gray-600 text-sm"></p>
+                <p id="deliveryPhone" class="text-gray-500 text-sm mt-1"></p>
+                <p class="text-gray-400 text-xs mt-2">Payment: <span id="paymentMethod"
+                        class="font-medium text-forest"></span></p>
+            </div>
+
+            <!-- Review Section (shown only for delivered orders) -->
+            <div id="reviewSection" class="hidden bg-white rounded-2xl shadow-md p-6">
+                <h3 class="font-bold text-forest mb-1">⭐ Rate Your Experience</h3>
+                <p class="text-gray-400 text-sm mb-4">Help other customers by sharing your feedback!</p>
+                <div id="reviewItems" class="space-y-5"></div>
+            </div>
+        </div>
+
+        <div id="orderHistory" class="mt-8">
+            <h3 class="text-xl font-bold text-forest mb-4">📜 Your Orders</h3>
+            <div id="orderList" class="space-y-4"></div>
+            <div id="noOrders" class="hidden text-center py-12">
+                <div class="text-5xl mb-3">📦</div>
+                <p class="text-gray-400">No orders yet. <a href="shop.htm"
+                        class="text-forest-light font-medium hover:underline">Start shopping!</a></p>
+            </div>
+        </div>
+    </main>
+
+    <div id="footerMount"></div>
+
+    <script src="lang.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('headerMount').innerHTML = RaithuBazaar.ui.getHeaderHTML('orders');
+            document.getElementById('footerMount').innerHTML = RaithuBazaar.ui.getFooterHTML();
+            RaithuBazaar.ui.initPage();
+
+            const params = new URLSearchParams(window.location.search);
+            const orderId = params.get('id');
+            if (orderId) {
+                document.getElementById('orderIdInput').value = orderId;
+                trackOrder(orderId);
+            }
+            renderOrderHistory();
+        });
+
+        const STATUS_MAP = {
+            placed: { label: '🛒 Order Placed', color: 'bg-blue-100 text-blue-700', desc: 'Your order has been received' },
+            confirmed: { label: '✅ Confirmed', color: 'bg-green-100 text-green-700', desc: 'Farmer confirmed your order' },
+            harvesting: { label: '🌾 Harvesting', color: 'bg-yellow-100 text-yellow-700', desc: 'Fresh produce being harvested' },
+            dispatched: { label: '🚚 Out for Delivery', color: 'bg-orange-100 text-orange-700', desc: 'On the way to you' },
+            delivered: { label: '🎉 Delivered', color: 'bg-forest-light/10 text-forest-light', desc: 'Enjoy your fresh food!' },
+        };
+
+        const STATUS_ORDER = ['placed', 'confirmed', 'harvesting', 'dispatched', 'delivered'];
+
+        function trackOrder(id) {
+            const order = RaithuBazaar.orders.getById(id);
+            if (!order) {
+                RaithuBazaar.ui.showToast('Order not found. Check your order ID.');
+                return;
+            }
+            document.getElementById('orderDetail').classList.remove('hidden');
+            document.getElementById('displayOrderId').textContent = order.id;
+            document.getElementById('orderDate').textContent = 'Placed on ' + new Date(order.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+            const statusInfo = STATUS_MAP[order.status] || STATUS_MAP.placed;
+            document.getElementById('statusBadge').textContent = statusInfo.label;
+            document.getElementById('statusBadge').className = `px-4 py-2 rounded-full text-sm font-bold ${statusInfo.color}`;
+
+            const currentIdx = STATUS_ORDER.indexOf(order.status);
+            document.getElementById('timeline').innerHTML = STATUS_ORDER.map((s, i) => {
+                const info = STATUS_MAP[s];
+                const done = i <= currentIdx;
+                const active = i === currentIdx;
+                const historyEntry = (order.timeline || []).find(h => h.status === s);
+                return `
+        <div class="relative flex items-start gap-4">
+          <div class="absolute left-[-20px] top-0 w-8 h-8 rounded-full flex items-center justify-center ${done ? 'bg-forest-light text-white' : 'bg-gray-200 text-gray-400'} ${active ? 'ring-4 ring-forest-light/30' : ''} text-sm font-bold">${done ? '✓' : i + 1}</div>
+          ${i < STATUS_ORDER.length - 1 ? `<div class="absolute left-[-8px] top-8 w-0.5 h-full ${done ? 'bg-forest-light' : 'bg-gray-200'}"></div>` : ''}
+          <div class="pt-1 pl-4">
+            <p class="font-semibold text-sm ${done ? 'text-forest' : 'text-gray-400'}">${info.label}</p>
+            <p class="text-xs ${done ? 'text-gray-500' : 'text-gray-300'}">${info.desc}</p>
+            ${historyEntry ? `<p class="text-xs text-gray-400 mt-0.5">${new Date(historyEntry.time).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}</p>` : ''}
+          </div>
+        </div>`;
+            }).join('');
+
+            document.getElementById('orderItems').innerHTML = order.items.map(item => {
+                const p = RaithuBazaar.products.getById(item.productId);
+                if (!p) return '';
+                const unitPrice = item.price || p.price || 0;
+                return `<div class="flex items-center gap-3 py-2"><img src="${p.image}" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?w=400'"><div class="flex-1"><p class="text-sm font-medium text-forest">${p.name}</p><p class="text-xs text-gray-400">x${item.qty} @ ₹${unitPrice}/${p.unit}</p></div><span class="text-sm font-bold text-forest">₹${unitPrice * item.qty}</span></div>`;
+            }).join('');
+
+            // Compute subtotal from items if not stored
+            const computedSubtotal = order.subtotal || order.items.reduce((sum, item) => {
+                const p = RaithuBazaar.products.getById(item.productId);
+                return sum + ((item.price || (p ? p.price : 0)) * item.qty);
+            }, 0);
+            const computedDelivery = order.deliveryFee !== undefined ? order.deliveryFee : 0;
+            document.getElementById('orderSubtotal').textContent = '₹' + computedSubtotal;
+            document.getElementById('orderDelivery').textContent = computedDelivery === 0 ? 'FREE' : '₹' + computedDelivery;
+            document.getElementById('orderTotal').textContent = '₹' + (order.total || (computedSubtotal + computedDelivery));
+            const addrStr = typeof order.address === 'string' ? order.address : (order.address ? `${order.customerName || ''}, ${order.address.street || ''}, ${order.address.city || ''}, ${order.address.state || ''} - ${order.address.pincode || ''}` : 'Not provided');
+            document.getElementById('deliveryAddress').textContent = addrStr;
+            document.getElementById('deliveryPhone').textContent = '📞 ' + (order.customerPhone || order.phone || 'N/A');
+
+            const paymentLabels = { upi: '📱 UPI', UPI: '📱 UPI', card: '💳 Card', Card: '💳 Card', cod: '💵 Cash on Delivery', COD: '💵 Cash on Delivery' };
+            document.getElementById('paymentMethod').textContent = paymentLabels[order.paymentMethod] || order.paymentMethod || 'N/A';
+
+            document.getElementById('orderDetail').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Show review section for delivered orders
+            if (order.status === 'delivered') {
+                document.getElementById('reviewSection').classList.remove('hidden');
+                renderReviewForm(order);
+            } else {
+                document.getElementById('reviewSection').classList.add('hidden');
+            }
+        }
+
+        let trackStars = {};
+        function renderReviewForm(order) {
+            const el = document.getElementById('reviewItems');
+            el.innerHTML = order.items.map(item => {
+                const p = RaithuBazaar.products.getById(item.productId);
+                if (!p) return '';
+                const already = RaithuBazaar.reviews.hasReviewed(order.id, item.productId);
+                if (already) {
+                    const review = RaithuBazaar.reviews.getByOrder(order.id).find(r => r.productId === item.productId);
+                    return `<div class="flex items-center gap-4 bg-green-50 rounded-xl p-4">
+                        <img src="${p.image}" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?w=400'">
+                        <div class="flex-1">
+                            <p class="font-medium text-forest text-sm">${p.name}</p>
+                            <p class="text-xs text-green-600 mt-1">✅ Reviewed — ${'⭐'.repeat(review?.rating || 0)}</p>
+                        </div>
+                    </div>`;
+                }
+                return `<div class="bg-gray-50 rounded-xl p-4">
+                    <div class="flex items-center gap-4 mb-3">
+                        <img src="${p.image}" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?w=400'">
+                        <div class="flex-1">
+                            <p class="font-medium text-forest text-sm">${p.name}</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-1 mb-3" id="track-stars-${order.id}-${p.id}">
+                        ${[1, 2, 3, 4, 5].map(s => `<button onclick="selectTrackStar('${order.id}',${p.id},${s})" class="text-2xl text-gray-300 hover:text-gold transition-colors track-star-btn">☆</button>`).join('')}
+                    </div>
+                    <textarea id="track-review-${order.id}-${p.id}" rows="2" placeholder="Share your experience..." class="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm focus:ring-2 focus:ring-forest-light outline-none resize-none mb-3"></textarea>
+                    <button onclick="submitTrackReview('${order.id}',${p.id})" class="px-5 py-2 bg-forest-light text-white text-xs font-bold rounded-lg hover:bg-forest transition-all">Submit ⭐</button>
+                </div>`;
+            }).join('');
+        }
+
+        function selectTrackStar(orderId, productId, rating) {
+            trackStars[orderId + '-' + productId] = rating;
+            const container = document.getElementById(`track-stars-${orderId}-${productId}`);
+            container.querySelectorAll('.track-star-btn').forEach((btn, idx) => {
+                btn.textContent = idx < rating ? '⭐' : '☆';
+                btn.className = `text-2xl ${idx < rating ? 'text-gold' : 'text-gray-300'} hover:text-gold transition-colors track-star-btn`;
+            });
+        }
+
+        function submitTrackReview(orderId, productId) {
+            const rating = trackStars[orderId + '-' + productId];
+            if (!rating) { RaithuBazaar.ui.showToast('Select a rating first ⭐'); return; }
+            const text = document.getElementById(`track-review-${orderId}-${productId}`).value.trim();
+            const user = RaithuBazaar.auth.getCurrentUser();
+            RaithuBazaar.reviews.addReview({
+                orderId, productId, rating, text,
+                customerName: user?.name || 'Customer',
+                customerId: user?.id || 'guest'
+            });
+            RaithuBazaar.ui.showToast('Review submitted! Thank you ⭐');
+            const order = RaithuBazaar.orders.getById(orderId);
+            if (order) renderReviewForm(order);
+        }
+
+        function renderOrderHistory() {
+            const allOrders = RaithuBazaar.orders.getAll().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            const listEl = document.getElementById('orderList');
+
+            if (allOrders.length === 0) { document.getElementById('noOrders').classList.remove('hidden'); return; }
+
+            listEl.innerHTML = allOrders.map(o => {
+                const statusInfo = STATUS_MAP[o.status] || STATUS_MAP.placed;
+                return `
+        <div class="bg-white rounded-xl shadow-sm p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition-all" onclick="trackOrder('${o.id}')">
+          <div class="w-12 h-12 rounded-xl ${statusInfo.color} flex items-center justify-center text-xl">${statusInfo.label.split(' ')[0]}</div>
+          <div class="flex-1 min-w-0">
+            <p class="font-bold text-forest text-sm">${o.id}</p>
+            <p class="text-xs text-gray-400">${new Date(o.createdAt).toLocaleDateString('en-IN')} - ${o.items.length} item${o.items.length > 1 ? 's' : ''}</p>
+          </div>
+          <div class="text-right">
+            <span class="font-bold text-forest">₹${o.total}</span>
+            <p class="text-xs">${statusInfo.label}</p>
+          </div>
+        </div>`;
+            }).join('');
+        }
+    </script>
+</body>
+
+</html>

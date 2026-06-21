@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Raithu Bazaar 🌾</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { forest: { DEFAULT: '#0f4023', light: '#1e7a3f', mid: '#2d9c5b' }, gold: { DEFAULT: '#d4a017', light: '#f0c040', dark: '#b8880f' }, cream: '#fdf8f0', mint: '#f0f9f4' }, fontFamily: { inter: ['Inter', 'sans-serif'] } } } }</script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="font-inter bg-gray-50 text-gray-800">
+    <div id="headerMount"></div>
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h1 class="text-3xl font-bold text-forest mb-8">🔒 Privacy Policy</h1>
+        <div class="bg-white rounded-2xl shadow-md p-8 prose prose-sm max-w-none">
+            <p class="text-gray-500 text-sm mb-6">Last updated: February 2026</p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">1. Information We Collect</h2>
+            <p class="text-gray-600">We collect personal information you provide when registering, placing orders, or
+                contacting us. This includes: name, phone number, email, delivery address, Aadhaar (for farmers), and
+                payment information.</p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">2. How We Use Your Information</h2>
+            <p class="text-gray-600">Your information is used to: process orders, deliver products, send order updates
+                via SMS/WhatsApp, improve our services, and communicate promotional offers (with your consent).</p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">3. Data Security</h2>
+            <p class="text-gray-600">We implement industry-standard security measures to protect your data. Payment
+                information is encrypted and processed through secure payment gateways. We never store your card
+                details.</p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">4. Information Sharing</h2>
+            <p class="text-gray-600">We do not sell your personal information. We share limited data with delivery
+                partners and payment processors only as necessary to fulfill your orders.</p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">5. Your Rights</h2>
+            <p class="text-gray-600">You can request access to, correction of, or deletion of your personal data by
+                contacting us at hello@raithubazaar.in or calling +91 98765 43210.</p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">6. Contact Us</h2>
+            <p class="text-gray-600">Raithu Bazaar Pvt. Ltd., Plot 42, Madhapur, HITEC City, Hyderabad, Telangana
+                500081.<br>Email: hello@raithubazaar.in | Phone: +91 98765 43210</p>
+        </div>
+    </main>
+    <div id="footerMount"></div>
+    <script src="lang.js"></script>
+    <script src="app.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => { document.getElementById('headerMount').innerHTML = RaithuBazaar.ui.getHeaderHTML('privacy'); document.getElementById('footerMount').innerHTML = RaithuBazaar.ui.getFooterHTML(); RaithuBazaar.ui.initPage(); });</script>
+</body>
+
+</html>

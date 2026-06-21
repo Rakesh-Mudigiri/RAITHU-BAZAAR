@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund Policy — Raithu Bazaar 🌾</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { forest: { DEFAULT: '#0f4023', light: '#1e7a3f', mid: '#2d9c5b' }, gold: { DEFAULT: '#d4a017', light: '#f0c040', dark: '#b8880f' }, cream: '#fdf8f0', mint: '#f0f9f4' }, fontFamily: { inter: ['Inter', 'sans-serif'] } } } }</script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="font-inter bg-gray-50 text-gray-800">
+    <div id="headerMount"></div>
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h1 class="text-3xl font-bold text-forest mb-8">💰 Refund Policy</h1>
+        <div class="bg-white rounded-2xl shadow-md p-8 prose prose-sm max-w-none">
+            <p class="text-gray-500 text-sm mb-6">Last updated: February 2026</p>
+            <div class="bg-mint rounded-xl p-4 mb-6">
+                <p class="text-forest font-semibold text-sm">Our Promise: 100% satisfaction guaranteed. If you're not
+                    happy, we'll make it right.</p>
+                <p class="text-forest text-xs mt-1">మా హామీ: 100% సంతృప్తి. | हमारा वादा: 100% संतुष्टि।</p>
+            </div>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">1. Cancellation Policy</h2>
+            <p class="text-gray-600">Orders can be cancelled within 30 minutes of placement for a full refund. After 30
+                minutes, orders may already be in the harvesting stage and cannot be cancelled.</p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">2. Quality Issues</h2>
+            <p class="text-gray-600">If you receive damaged, stale, or poor-quality produce, report it within 2 hours of
+                delivery with photos. We will provide a full replacement or refund at no extra cost.</p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">3. Missing Items</h2>
+            <p class="text-gray-600">If any items are missing from your order, contact us immediately. We will either
+                deliver the missing items or issue a refund for those specific items.</p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">4. Refund Timeline</h2>
+            <p class="text-gray-600">• UPI refunds: 24-48 hours<br>• Card refunds: 3-5 business days<br>• Wallet credit:
+                Instant</p>
+            <h2 class="text-xl font-bold text-forest mt-6 mb-3">5. How to Request a Refund</h2>
+            <p class="text-gray-600">• WhatsApp: +91 98765 43210<br>• Phone: +91 98765 43210<br>• Email:
+                hello@raithubazaar.in<br><br>Include your Order ID and photos of the issue. We respond within 1 hour.
+            </p>
+        </div>
+    </main>
+    <div id="footerMount"></div>
+    <script src="lang.js"></script>
+    <script src="app.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => { document.getElementById('headerMount').innerHTML = RaithuBazaar.ui.getHeaderHTML('refunds'); document.getElementById('footerMount').innerHTML = RaithuBazaar.ui.getFooterHTML(); RaithuBazaar.ui.initPage(); });</script>
+</body>
+
+</html>
